@@ -11,7 +11,7 @@
 		(state ?l)
 		(region ?l)
 		(provice ?l)
-		(ditrict ?l)
+		(district ?l)
 		(has-ariport ?l)
 		(in ?b ?v)
 		(at ?v ?l)
@@ -24,23 +24,30 @@
 	)
 	(:action load
 		:parameters (?vehicle ?vaccine-box ?location)
-		:precondition (and (vehicle ?vehicle)
+		:precondition (and
 			(vaccine-box ?vaccine-box)
 			(location ?location)
 			(at ?vehicle ?location)
 			(at ?vaccine-box ?location)
-			(< (capacity ?vehicle) 3))
+			(or (and
+					(plane ?vehicle)
+					(< (capacity ?vehicle) 5)
+				)
+				(and
+					(truck ?vehicle)
+					(< (capacity ?vehicle) 3)
+				)
+				(and
+					(drone ?vehicle)
+					(< (capacity ?vehicle) 1)
+				)
+			)
+		)
 		:effect (and (not (at ?vaccine-box ?location))
 			(in ?vaccine-box ?vehicle)
 			(increase (capacity ?vehicle) 1)
 			(decrease (capacity ?location) 1))
 	)
-
-	;(:action re-fuel
-	;	:parameters (?r)
-	;	:precondition (and (rocket ?r) )
-	;	:effect (and (has-fuel ?r))
-	;)
 	(:action un-load
 		:parameters (?vehicle ?vaccine-box ?location)
 		:precondition (and (vehicle ?vehicle)
@@ -57,12 +64,28 @@
 	(:action move
 		:parameters (?vehicle ?location-1 ?location-2)
 		:precondition (and
-			(vehicle ?vehicle)
 			(location ?location-1)
 			(location ?location-2)
 			(at ?vehicle ?location-1)
-
-			(connected ?location-1 ?location-2)
+			(or (and
+					(plane ?vehicle)
+					(has-ariport ?location-1)
+					(has-ariport ?location-2)
+				)
+				(and
+					(truck ?vehicle)
+					(connected ?location-1 ?location-2)
+					(not(district ?location-2))
+				)
+				(and
+					(drone ?vehicle)
+					(or
+						(district ?location-2)
+						(district ?location-1)
+					)
+					(connected ?location-1 ?location-2)
+				)
+			)
 		)
 		:effect (and (not (at ?vehicle ?location-1)) (at ?vehicle ?location-2))
 	)
