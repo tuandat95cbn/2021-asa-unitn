@@ -1,0 +1,15 @@
+;; problem file: gripper-problem1.pddl
+(define (problem gripper-prob1)
+  (:domain gripper)
+  (:objects hand-1 hand-2 ball-r ball-g ball-b ball-5 ball-6 ball-7 room-1 room-2 room-3 room-4)
+  (:init (is-hand hand-1) (is-hand hand-2)
+         (is-room room-1)(is-room room-2)(is-room room-3)(is-room room-4)
+         (connected room-1 room-2)(connected room-2 room-1)(connected room-2 room-3)(connected room-3 room-2)(connected room-3 room-4)(connected room-4 room-3)
+         (is-ball ball-g)(is-ball ball-b)(is-ball ball-r)(is-ball ball-5)(is-ball ball-6)(is-ball ball-7)
+         (at-robo room-2)
+         (at ball-r room-1)(at ball-g room-1)(at ball-b room-1)(at ball-5 room-1)(at ball-6 room-1)(at ball-7 room-1) 
+         (free hand-1) (free hand-2) 
+  )
+  (:goal (and (at ball-r room-4)(at ball-g room-4)(at ball-b room-4)(at ball-5 room-4)(at ball-6 room-4)(at ball-7 room-4)))
+  )
+

@@ -1,0 +1,32 @@
+;; domain file: hanoi_tower.pddl
+(define (domain hanoi-tower)
+  (:requirements :strips)
+  (:predicates    (at-robo ?x)
+		  (at ?x ?y)
+		  (is-room ?x)
+		  (is-ball ?x)
+		  (is-hand ?x)
+		  (free ?x)
+		  (carry ?x ?y)
+		  (connected ?x ?y)
+		  )
+  (:action move
+	   :parameters (?disk ?pillar-1 ?pillar-2)
+	   :precondition (and (is-disk ?disk) (is-pillar ?hand) (free ?hand) (is-room ?room) (at-robo ?room) (at ?ball ?room))
+	   :effect (and (not (free ?hand)) (not(at ?ball ?room)) (carry ?ball ?hand)
+			)
+	   )
+  (:action putdown
+	   :parameters (?ball ?hand ?room)
+	   :precondition (and (is-ball ?ball) (is-hand ?hand) (is-room ?room) (at-robo ?room)(carry ?ball ?hand) )
+	   :effect (and (free ?hand) (at ?ball ?room) (not(carry ?ball ?hand))
+			)
+	   )
+  (:action move
+	   :parameters (?x ?y)
+	   :precondition (and (is-room ?y) (is-room ?x) (at-robo ?x)(connected ?x ?y))
+	   :effect (and (at-robo ?y) (not(at-robo ?x))
+			)
+	   )
+  )
+
