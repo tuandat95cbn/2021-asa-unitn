@@ -102,12 +102,12 @@
 				(and
 					(drone ?vehicle)
 					(or
-						;(and (district ?location-2) (inside ?location-2 ?location-1))
-						;(and (district ?location-1) (inside ?location-1 ?location-2))
-						(district ?location-2)
-						(district ?location-1)
+						(and (district ?location-2) (inside ?location-2 ?location-1))
+						(and (district ?location-1) (inside ?location-1 ?location-2))
+						;(district ?location-2)
+						;(district ?location-1)
 					)
-					(connected ?location-1 ?location-2)
+					;(connected ?location-1 ?location-2)
 				)
 			)
 		)
