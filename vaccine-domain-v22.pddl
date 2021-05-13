@@ -17,9 +17,9 @@
 		(in ?b ?v)
 		(at ?v ?l)
 		(connected ?l-1 ?l-2)
+		(air-connected ?l-1 ?l-2)
 		(inside ?l-1 ?l-2)
 		(capacity ?r ?n)
-
 	)
 	(:constants
 		l0 l1 l2 l3
@@ -93,6 +93,7 @@
 					(plane ?vehicle)
 					(has-airport ?location-1)
 					(has-airport ?location-2)
+					(air-connected ?location-1 ?location-2)
 				)
 				(and
 					(truck ?vehicle)
